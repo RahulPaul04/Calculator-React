@@ -33,7 +33,7 @@ function App() {
     setTdur("0.4s")
    if(input2)
    { try{
-      setOutput(String(eval(input2)))
+      setOutput(String(eval(input2).toFixed(5)))
       setmove(true)
   }
   catch{
