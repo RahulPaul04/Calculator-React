@@ -9,11 +9,12 @@ function App() {
   const [input2,setInput2] = useState("")
   const [move,setmove] = useState(false)
   const [tdur,setTdur] = useState("0.4s")
+  const [tdur2,setTdur2] = useState("0.4s")
 
   const displayContent = (val) =>{
-    setTdur("0.4s")
+    setTdur("0s")
 
-    let value = move?output + val:input2+ val
+    let value = move  ?output + val:input2+ val
     setInput2(value)
     setplaceholder("0")
     setmove(false)
@@ -33,7 +34,9 @@ function App() {
     setTdur("0.4s")
    if(input2)
    { try{
-      setOutput(String(eval(input2).toFixed(5)))
+      let ans = eval(input2)
+      let value = Number.isInteger(ans)?ans:ans.toFixed(5)
+      setOutput(String(value))
       setmove(true)
   }
   catch{
@@ -57,18 +60,22 @@ function App() {
     transform: `translateY(${move ? '-45' : '0'}px)`,
     fontSize:`${move?'1.5rem':'2.5rem'}`
   };
+
+  let st2 = {
+    fontSize:`${move?'2.5rem':'0'}`,transition: ` ${tdur}`
+  }
   
   return (
   
       <div className="full-container d-flex">
-      <div className="calculator mx-auto col-lg-4 col-md-5 col-10">
+      <div className="calculator mx-auto col-lg-4 col-md-5 col-11">
           <div className="display">
             <input id="display2" style={st} value={input2} placeholder={placeholder} type="text" readonly/>
-            <input id="display" style={{fontSize:`${move?'2.5rem':'0'}`}} value={output}  type="text" readonly/>
+            <input id="display" style={st2} value={output}  type="text" readonly/>
             </div>
           <div onClick={e => displayContent('(')}  className="button operator">(</div>
           <div onClick={e => displayContent(')')}  className="button operator">)</div>
-          <div onClick={minusone} className="button operator">del</div>
+          <div onClick={minusone} className="button operator">{'\u232B'}</div>
           <div onClick={reset} className="button AC">AC</div>
           <div onClick={e => displayContent('7')} className="button">7</div>
           <div onClick={e => displayContent('8')}  className="button">8</div>
